@@ -1,2 +1,6 @@
+github.com/Geekzix/calorie-snap-commons v1.0.0-beta.0.20261119171716-aad3d9b07517 h1:l3y1CWHyLbgpo0IA4HobJDUpr/o1KEjwJ/mjYMuqzr4=
+github.com/Geekzix/calorie-snap-commons v1.0.0-beta.0.20261119171716-aad3d9b07517/go.mod h1:uC5blXPOL2GmWYkIV0OTIDS8VgKRLSdwlj/2LfRpp4Y=
 github.com/go-chi/chi/v5 v5.5.0 h1:xdKQ1dJmVJsmgahrXSKhUx8NyVPzpwdlyrrQFpMPJgg=
 github.com/go-chi/chi/v5 v5.5.0/go.mod h1:d1IG7GtKPSjPyBP365PH8sAGVHk3qfB/IhjFNRH1wWM=
+github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
+github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
