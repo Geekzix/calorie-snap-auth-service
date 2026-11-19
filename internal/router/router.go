@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/Geekzix/calorie-snap-auth-service/internal/handler"
+	appmiddleware "github.com/Geekzix/calorie-snap-auth-service/internal/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -18,7 +19,7 @@ func New(logger *slog.Logger) http.Handler {
 	r.Use(middleware.Recoverer)
 
 	// App middleware
-
+	r.Use(appmiddleware.RequestLogger(logger))
 	// http endpoints
 	r.Get("/health", handler.Health)
 	r.Get("/ready", handler.Ready)
