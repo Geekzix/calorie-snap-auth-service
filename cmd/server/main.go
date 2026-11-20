@@ -14,10 +14,21 @@ import (
 	"github.com/Geekzix/calorie-snap-auth-service/internal/router"
 	"github.com/Geekzix/calorie-snap-commons/utils"
 	"github.com/go-chi/chi/v5"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+
+	/*
+	* godotenv is only for local testing
+	* remove in k8s or docker environment
+	 */
+	err := godotenv.Load()
+	if err != nil {
+		logger.Error("Error loading .env file")
+		os.Exit(1)
+	}
 
 	cfg, err := config.Load()
 	if err != nil {
