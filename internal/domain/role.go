@@ -13,3 +13,4 @@ type Role struct {
 	Permission []Permission `gorm:"many2many:role_permission;"`
 	common.Audit
 }
+
