@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	"github.com/Geekzix/calorie-snap-auth-service/internal/config"
+	"github.com/Geekzix/calorie-snap-auth-service/internal/infra/database"
 	"github.com/Geekzix/calorie-snap-auth-service/internal/router"
 	"github.com/Geekzix/calorie-snap-commons/utils"
 	"github.com/go-chi/chi/v5"
@@ -24,7 +25,25 @@ func main() {
 		os.Exit(1)
 	}
 
-	handler := router.New(logger)
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	// db connect
+	db, err := database.Connect(ctx, cfg.DatabaseURL)
+	if err != nil {
+		logger.Error("failed to connect to database", "error", err)
+		os.Exit(1)
+	}
+
+	sqlDB, err := db.DB()
+	if err != nil {
+		logger.Error("failed to get database connection", "error", err)
+		os.Exit(1)
+	}
+	defer sqlDB.Close()
+
+	// chi handler
+	handler := router.New(logger, db)
 
 	basePath := utils.GetEnvString("BASE_URL_PATH", "/auth")
 	apiHandler := chi.NewRouter()
@@ -45,9 +64,6 @@ func main() {
 		logger.Info("Auth server is running", "address", cfg.HttpAddr)
 		serverErrors <- server.ListenAndServe()
 	}()
-
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	defer stop()
 
 	select {
 	case err := <-serverErrors:

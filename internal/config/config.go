@@ -12,6 +12,7 @@ type Config struct {
 	WriteTimeout    time.Duration
 	IdleTimeout     time.Duration
 	ShutdownTimeout time.Duration
+	DatabaseURL     string
 }
 
 func Load() (Config, error) {
@@ -21,6 +22,7 @@ func Load() (Config, error) {
 		WriteTimeout:    10 * time.Second,
 		IdleTimeout:     60 * time.Second,
 		ShutdownTimeout: 10 * time.Second,
+		DatabaseURL:     utils.GetEnvString("DATABASE_URL", "postgres://auth_user:password@localhost:5432/auth_db?sslmode=disable"),
 	}
 
 	var err error
