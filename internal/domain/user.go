@@ -15,6 +15,7 @@ type User struct {
 	Gender   constant.Gender     `gorm:"type:int;not null"`
 	Status   constant.UserStatus `gorm:"type:varchar(32);not null;default:PENDING;index:idx_users_status"`
 
-	Role Role `gorm:"foreignKey:RoleID;references:ID:constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
+	RoleID uuid.UUID `gorm:"type:uuid;not null;index:idx_users_role_id"`
+	Role   Role      `gorm:"foreignKey:RoleID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 	common.Audit
 }

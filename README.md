@@ -4,7 +4,8 @@ Authentication and authorization service
 
 ### Table of contents
 - [Setup](./docs/setup.md)
-- [Resources](./docs/learning-res.md)
+- [Learning Resources](./docs/learning-res.md)
+- [DB Migration Guide](./docs/altas-db-migration.md)
 
 
 

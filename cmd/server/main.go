@@ -11,6 +11,8 @@ import (
 
 	"github.com/Geekzix/calorie-snap-auth-service/internal/config"
 	"github.com/Geekzix/calorie-snap-auth-service/internal/router"
+	"github.com/Geekzix/calorie-snap-commons/utils"
+	"github.com/go-chi/chi/v5"
 )
 
 func main() {
@@ -24,9 +26,14 @@ func main() {
 
 	handler := router.New(logger)
 
+	basePath := utils.GetEnvString("BASE_URL_PATH", "/auth")
+	apiHandler := chi.NewRouter()
+
+	apiHandler.Mount(basePath, handler)
+
 	server := &http.Server{
 		Addr:         cfg.HttpAddr,
-		Handler:      handler,
+		Handler:      apiHandler,
 		ReadTimeout:  cfg.ReadTimeout,
 		WriteTimeout: cfg.WriteTimeout,
 		IdleTimeout:  cfg.IdleTimeout,
